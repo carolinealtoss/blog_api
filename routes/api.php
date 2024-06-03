@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -7,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //})->middleware('auth:sanctum');
 
-Route::get('/user', function () {
-    return "route user";
+Route::get('/', function () {
+    return "rota padrão";
 });
+
+Route::apiResource('user', UserController::class);
