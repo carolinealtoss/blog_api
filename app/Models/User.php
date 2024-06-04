@@ -56,4 +56,10 @@ class User extends Authenticatable
             'password' => 'required|string|min:8',
         ]);
     }
+
+    // obtém as categorias relacionadas ao usuário
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }
