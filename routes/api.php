@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,4 @@ Route::get('/', function () {
 
 Route::apiResource('user', UserController::class);
 Route::apiResource('category', CategoryController::class);
+Route::apiResource('post', PostController::class);
