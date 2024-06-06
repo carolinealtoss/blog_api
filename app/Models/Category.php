@@ -18,7 +18,7 @@ class Category extends Model
     public static function validate($data)
     {
         return Validator::make($data, [
-            'user_id' => 'required',
+            'user_id' => 'required|exists:users,id',
             'category_name' => 'required|string|max:255',
         ]);
     }

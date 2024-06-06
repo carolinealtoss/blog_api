@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
@@ -13,23 +13,24 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $posts = Post::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json($posts, Response::HTTP_OK);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePostRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validator = Post::validate($request->all());
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+        }
+
+        $post = Post::create($request->all());
+
+        return response()->json($post, Response::HTTP_CREATED);
     }
 
     /**
@@ -37,23 +38,35 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
-    }
+        if (!$post) {
+            return response()->json(['message' => 'Post not found'], Response::HTTP_NOT_FOUND);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Post $post)
-    {
-        //
+        return response()->json($post, Response::HTTP_OK);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(Request $request, Post $post)
     {
-        //
+        if (!$post) {
+            return response()->json(['message' => 'Post not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $validator = Post::validate($request->all());
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+        }
+
+        $post->update([
+            'image' => $request->image,
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'text' => $request->text,
+        ]);
+
+        return response()->json($post, Response::HTTP_OK);
     }
 
     /**
@@ -61,6 +74,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if (!$post) {
+            return response()->json(['message' => 'Post not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $post->delete();
+
+        return response()->json(['message' => 'Post deleted sucessfully']);
     }
 }

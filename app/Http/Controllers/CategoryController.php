@@ -28,15 +28,7 @@ class CategoryController extends Controller
             return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
 
-        $user = User::find($request->user_id);
-        if (!$user) {
-            return response()->json(['message' => 'USER_ID not found'], Response::HTTP_NOT_FOUND);
-        }
-
-        $category = Category::create([
-            'user_id' => $user->id,
-            'category_name' => $request->category_name
-        ]);
+        $category = Category::create($request->all());
 
         return response()->json($category, Response::HTTP_CREATED);
     }
