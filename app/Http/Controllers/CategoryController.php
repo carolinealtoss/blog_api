@@ -59,6 +59,10 @@ class CategoryController extends Controller
             return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
 
+        if ($request->user_id != $category->user_id) {
+            return response()->json(['message' => 'User not found'], Response::HTTP_BAD_REQUEST);
+        }
+
         $category->update($request->category_name);
 
         return response()->json($category, Response::HTTP_OK);
