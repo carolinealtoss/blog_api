@@ -6,13 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
-
-/**
- * @OA\Info(
- *      version="1.0",
- *      title="Blog API - Documentation",
- * )
- */
+use App\Docs\Swagger\UserComponents;
 
 class UserController extends Controller
 {
@@ -37,7 +31,7 @@ class UserController extends Controller
     }
 
     /**
-    * @OA\Post(
+    * @OA\POST(
     *   path="/api/user",
     *   summary="Create a new user",
     *   tags={"User"},
@@ -137,8 +131,53 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
+    * @OA\PUT(
+    *   path="/api/user/{user_id}",
+    *   summary="Update a specific user",
+    *   tags={"User"},
+    *   @OA\Parameter(
+    *       name="user_id",
+    *       in="path",
+    *       required=true,
+    *       @OA\Schema(type="integer")
+    *   ),
+    *   @OA\RequestBody(
+    *      @OA\JsonContent(
+    *         required={"name","username", "email", "password"},
+    *         @OA\Property(
+    *             property="name",
+    *             type="string",
+    *             example="Anabela Flore"
+    *         ),
+    *         @OA\Property(
+    *             property="username",
+    *             type="string",
+    *             example="anabelaflore"
+    *         ),
+    *         @OA\Property(
+    *             property="email",
+    *             type="string",
+    *             format="email",
+    *             example="anabela@mail.com"
+    *         ),
+    *         @OA\Property(
+    *             property="password",
+    *             type="string",
+    *             format="password",
+    *             example="Password-AnabelaFlore1234"
+    *         ),
+    *      ),
+    *   ),
+    *   @OA\Response(
+    *     response=200,
+    *     description="Ok",
+    *   ),
+    *   @OA\Response(
+    *     response=404,
+    *     description="User not found"
+    *   )
+    * )
+    */
     public function update(Request $request, string $id)
     {
         $user = User::find($id);
@@ -149,7 +188,7 @@ class UserController extends Controller
 
         $data = $request->all();
 
-        // Remover o campo 'password' da validação se ele não for enviado na requisição
+        // Remove o campo 'password' da validação se ele não for enviado na requisição
         if (!$request->has('password')) {
             unset($data['password']);
         }
@@ -173,8 +212,26 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     */
+    * @OA\DELETE(
+    *      path="/api/user/{user_id}",
+    *      summary="Delete a specific user",
+    *      tags={"User"},
+    *      @OA\Parameter(
+    *          name="user_id",
+    *          in="path",
+    *          required=true,
+    *          @OA\Schema(type="integer")
+    *      ),
+    *      @OA\Response(
+    *          response=204,
+    *          description="User deleted"
+    *      ),
+    *      @OA\Response(
+    *          response=404,
+    *          description="User not found"
+    *      )
+    *  )
+    */
     public function destroy(string $id)
     {
         $user = User::find($id);
