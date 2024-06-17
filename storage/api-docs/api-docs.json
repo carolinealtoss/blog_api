@@ -1,0 +1,103 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Blog API - Documentation",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all users",
+                "operationId": "971db9bc974c0e607288cfe7ecc10096",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create a new user",
+                "operationId": "089999749fbdec98922de2f74ba8d540",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "email"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Anabela Smith",
+                                    "username": "anabelasmith",
+                                    "email": "anabelasmith@email.com",
+                                    "password": "password-1234"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/api/user/{user_id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get a specific user",
+                "operationId": "085de2acd1034eba21b2b8167afee7a2",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        }
+    }
+}

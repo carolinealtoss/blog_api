@@ -7,12 +7,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @OA\Info(
+ *      version="1.0",
+ *      title="Blog API - Documentation",
+ * )
+ */
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
+    * @OA\GET(
+    *   path="/api/user",
+    *   summary="Get all users",
+    *   tags={"User"},
+    *   @OA\Response(
+    *       response=200,
+    *       description="Ok",
+    *       @OA\MediaType(
+    *           mediaType="application/json",
+    *       )
+    *   ),
+    * )
+    */
     public function index()
     {
         $users = User::all();
@@ -20,8 +37,52 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
+    * @OA\Post(
+    *   path="/api/user",
+    *   summary="Create a new user",
+    *   tags={"User"},
+    *   @OA\RequestBody(
+    *       @OA\MediaType(
+    *           mediaType="application/json",
+    *           @OA\Schema(
+    *               @OA\Property(
+    *                   property="name",
+    *                   type="string"
+    *                 ),
+    *               @OA\Property(
+    *                   property="username",
+    *                   type="string"
+    *                ),
+    *               @OA\Property(
+    *                   property="email",
+    *                   type="email"
+    *                ),
+    *               @OA\Property(
+    *                   property="password",
+    *                   type="string"
+    *                ),
+    *               example={
+    *                   "name": "Anabela Smith",
+    *                   "username": "anabelasmith",
+    *                   "email": "anabelasmith@email.com",
+    *                   "password": "password-1234"
+    *               }
+    *             )
+    *         )
+    *     ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="Ok",
+    *       @OA\MediaType(
+    *           mediaType="application/json",
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=404,
+    *       description="User not found"
+    *   )
+    * )
+    */
     public function store(Request $request)
     {
         $validator = User::validate($request->all());
@@ -41,8 +102,31 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
+    * @OA\GET(
+    *   path="/api/user/{user_id}",
+    *   summary="Get a specific user",
+    *   tags={"User"},
+    *   @OA\Parameter(
+    *       name="user_id",
+    *       in="path",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="Ok",
+    *       @OA\MediaType(
+    *           mediaType="application/json",
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=404,
+    *       description="User not found"
+    *   )
+    * )
+    */
     public function show(User $user)
     {
        if (!$user) {

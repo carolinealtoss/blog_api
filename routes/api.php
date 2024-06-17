@@ -14,11 +14,11 @@ Route::get('/', function () {
 
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
+//Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::apiResource('user', UserController::class);
     Route::apiResource('category', CategoryController::class);
     Route::apiResource('post', PostController::class);
     Route::apiResource('comment', CommentController::class);
-});
+//});
