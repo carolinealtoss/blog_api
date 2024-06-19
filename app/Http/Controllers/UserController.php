@@ -41,39 +41,37 @@ class UserController extends Controller
     *           @OA\Schema(
     *               @OA\Property(
     *                   property="name",
-    *                   type="string"
+    *                   type="string",
+    *                   example="Anabela Flore"
     *                 ),
     *               @OA\Property(
     *                   property="username",
-    *                   type="string"
+    *                   type="string",
+    *                   example="anabelaflore"
     *                ),
     *               @OA\Property(
     *                   property="email",
-    *                   type="email"
+    *                   type="email",
+    *                   example="anabela@mail.com"
     *                ),
     *               @OA\Property(
     *                   property="password",
-    *                   type="string"
+    *                   type="string",
+    *                   example="Password-AnabelaFlore1234"
     *                ),
-    *               example={
-    *                   "name": "Anabela Smith",
-    *                   "username": "anabelasmith",
-    *                   "email": "anabelasmith@email.com",
-    *                   "password": "password-1234"
-    *               }
     *             )
     *         )
     *     ),
     *   @OA\Response(
-    *       response=200,
-    *       description="Ok",
+    *       response=201,
+    *       description="User created",
     *       @OA\MediaType(
     *           mediaType="application/json",
     *       )
     *   ),
     *   @OA\Response(
-    *       response=404,
-    *       description="User not found"
+    *       response=400,
+    *       description="Bad request"
     *   )
     * )
     */
@@ -97,11 +95,11 @@ class UserController extends Controller
 
     /**
     * @OA\GET(
-    *   path="/api/user/{user_id}",
+    *   path="/api/user/{id}",
     *   summary="Get a specific user",
     *   tags={"User"},
     *   @OA\Parameter(
-    *       name="user_id",
+    *       name="id",
     *       in="path",
     *       required=true,
     *       @OA\Schema(
@@ -123,20 +121,16 @@ class UserController extends Controller
     */
     public function show(User $user)
     {
-       if (!$user) {
-            return response()->json(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
-       }
-
        return response()->json($user, Response::HTTP_OK);
     }
 
     /**
     * @OA\PUT(
-    *   path="/api/user/{user_id}",
+    *   path="/api/user/{id}",
     *   summary="Update a specific user",
     *   tags={"User"},
     *   @OA\Parameter(
-    *       name="user_id",
+    *       name="id",
     *       in="path",
     *       required=true,
     *       @OA\Schema(type="integer")
@@ -178,14 +172,8 @@ class UserController extends Controller
     *   )
     * )
     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
-        }
-
         $data = $request->all();
 
         // Remove o campo 'password' da validação se ele não for enviado na requisição
@@ -213,17 +201,17 @@ class UserController extends Controller
 
     /**
     * @OA\DELETE(
-    *      path="/api/user/{user_id}",
+    *      path="/api/user/{id}",
     *      summary="Delete a specific user",
     *      tags={"User"},
     *      @OA\Parameter(
-    *          name="user_id",
+    *          name="id",
     *          in="path",
     *          required=true,
     *          @OA\Schema(type="integer")
     *      ),
     *      @OA\Response(
-    *          response=204,
+    *          response=200,
     *          description="User deleted"
     *      ),
     *      @OA\Response(
@@ -232,14 +220,8 @@ class UserController extends Controller
     *      )
     *  )
     */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
-        }
-
         $user->delete();
 
         return response()->json(['message' => 'User deleted sucessfully'], Response::HTTP_OK);
