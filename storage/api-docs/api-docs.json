@@ -5,6 +5,190 @@
         "version": "1.0"
     },
     "paths": {
+        "/api/post": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get all posts",
+                "operationId": "b4b7284c8fb22330a82699a8356a5e88",
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Create a new post",
+                "operationId": "2b5846c8a1e7a22fa31af93f7accb003",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": "156"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "112"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "https://via.placeholder.com/640x480.png/00ee11?text=asperiores"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Quisquam error debitis molestias adipisci nostrum"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "quisquam-error-debitis-molestias-adipisci-nostrum2"
+                                    },
+                                    "text": {
+                                        "type": "string",
+                                        "example": "Quidem et exercitationem repellendus eos maxime earum eligendi ipsam. Ab voluptatum ex ut suscipit. Veritatis neque et eius. Et accusamus hic minima quia laboriosam repellat. Deleniti corporis quis explicabo quasi reprehenderit porro. Optio vitae nostrum quia voluptatum rerum et facilis. Accusamus sit inventore aspernatur. Esse numquam sit id voluptatem et ullam itaque. Delectus ipsam excepturi neque sit impedit iusto porro. Qui doloribus ut pariatur quia aut. Ut illo et vel nihil repellendus sit dolore officia. Accusantium nobis ducimus numquam similique pariatur laboriosam. Ut sint iusto saepe. Animi nam ab odit omnis doloribus"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Post created"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/post/{id}": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get a specific post",
+                "operationId": "239ae40d24d82380dd09557f9614ad9e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "404": {
+                        "description": "Post not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Update a specific post",
+                "operationId": "810f728ecb4e0ff17868cb92df339718",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id",
+                                    "category_id",
+                                    "image",
+                                    "title",
+                                    "slug",
+                                    "text"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": "156"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "112"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "https://via.placeholder.com/640x480.png/00ee11?text=asperiores"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Quisquam error debitis molestias adipisci nostrum"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "quisquam-error-debitis-molestias-adipisci-nostrum2"
+                                    },
+                                    "text": {
+                                        "type": "string",
+                                        "example": "Quidem et exercitationem repellendus eos maxime earum eligendi ipsam. Ab voluptatum ex ut suscipit. Veritatis neque et eius. Et accusamus hic minima quia laboriosam repellat. Deleniti corporis quis explicabo quasi reprehenderit porro. Optio vitae nostrum quia voluptatum rerum et facilis. Accusamus sit inventore aspernatur. Esse numquam sit id voluptatem et ullam itaque. Delectus ipsam excepturi neque sit impedit iusto porro. Qui doloribus ut pariatur quia aut. Ut illo et vel nihil repellendus sit dolore officia. Accusantium nobis ducimus numquam similique pariatur laboriosam. Ut sint iusto saepe. Animi nam ab odit omnis doloribus"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "404": {
+                        "description": "Post not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Delete a specific post",
+                "operationId": "6d25b4d3f1749560f4d0d0ae67e41858",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "User deleted"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
         "/api/user": {
             "get": {
                 "tags": [
@@ -33,52 +217,50 @@
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Anabela Flore"
                                     },
                                     "username": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "anabelaflore"
                                     },
                                     "email": {
-                                        "type": "email"
+                                        "type": "email",
+                                        "example": "anabela@mail.com"
                                     },
                                     "password": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Password-AnabelaFlore1234"
                                     }
                                 },
-                                "type": "object",
-                                "example": {
-                                    "name": "Anabela Smith",
-                                    "username": "anabelasmith",
-                                    "email": "anabelasmith@email.com",
-                                    "password": "password-1234"
-                                }
+                                "type": "object"
                             }
                         }
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "User created",
                         "content": {
                             "application/json": {}
                         }
                     },
-                    "404": {
-                        "description": "User not found"
+                    "400": {
+                        "description": "Bad request"
                     }
                 }
             }
         },
-        "/api/user/{user_id}": {
+        "/api/user/{id}": {
             "get": {
                 "tags": [
                     "User"
                 ],
                 "summary": "Get a specific user",
-                "operationId": "085de2acd1034eba21b2b8167afee7a2",
+                "operationId": "d8f696420bea235f4916124c9ba1c507",
                 "parameters": [
                     {
-                        "name": "user_id",
+                        "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -103,10 +285,10 @@
                     "User"
                 ],
                 "summary": "Update a specific user",
-                "operationId": "7e3ce18eac80a7796d6b9c1282777232",
+                "operationId": "5e09c26a0abb2b1bf040badb2d9c69ba",
                 "parameters": [
                     {
-                        "name": "user_id",
+                        "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -163,10 +345,10 @@
                     "User"
                 ],
                 "summary": "Delete a specific user",
-                "operationId": "76170f4ad3258a56cecc6a01c463592a",
+                "operationId": "f8d7aea516ee464d0afee90f3a1a1722",
                 "parameters": [
                     {
-                        "name": "user_id",
+                        "name": "id",
                         "in": "path",
                         "required": true,
                         "schema": {
