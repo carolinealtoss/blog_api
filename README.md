@@ -1,8 +1,3 @@
-## em construção
-
-php artisan l5-swagger:generate
-
-
 # Blog API
 
 Este é um projeto de API criado utilizando o framework Laravel 11.
@@ -20,8 +15,6 @@ A API fornece endpoints para gerenciar usuários, categorias, posts e comentári
 
    ```bash
    git clone git@github.com:carolinealtoss/blog_api.git
-
-   ```bash
    cd blog_api
 
 2. Instale as dependências do Composer:
@@ -87,8 +80,23 @@ A API possui os seguintes endpoints:
 - PUT /api/comment/{id}: Atualiza um comentário existente.
 - DELETE /api/comment/{id}: Remove um comentário.
 
-Documentação da API
-A documentação completa da API foi gerada utilizando o Swagger. Você pode acessá-la através da interface Swagger UI no seu navegador.
+## Documentação da API com Swagger (em construção)
 
-Acessando a Documentação
+A documentação da API foi gerada utilizando o Swagger.
+Você pode acessá-la através da interface Swagger UI no seu navegador.
+
+### Acessando a Documentação
+
 Após iniciar o servidor de desenvolvimento, a documentação estará disponível na seguinte URL:
+
+    ```bash
+    http://localhost:8000/api/docs
+
+Nesta interface, você pode visualizar os endpoints disponíveis, seus parâmetros, exemplos de requisições e respostas, além de poder testar diretamente cada um dos endpoints.
+
+### Como Gerar ou Atualizar a Documentação
+
+1. Gere a documentação atualizada executando o seguinte comando:
+
+    ```bash
+    php artisan l5-swagger:generate
