@@ -82,6 +82,8 @@ A API possui os seguintes endpoints:
 
 ## Documentação da API com Swagger (em construção)
 
+![imagem da documentação com swagger](https://github.com/carolinealtoss/blog_api/blob/develop/blog-api.png)
+
 A documentação da API foi gerada utilizando o Swagger.
 Você pode acessá-la através da interface Swagger UI no seu navegador.
 
